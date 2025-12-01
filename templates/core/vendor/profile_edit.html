@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Vendor Profile{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow">
+    <h1 class="text-2xl font-bold mb-6">Edit Vendor Profile</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-4">
+            <label class="block text-gray-700 mb-2">{{ form.company_name.label }}</label>
+            {{ form.company_name }}
+            {% if form.company_name.errors %}
+                <p class="text-red-600 text-sm">{{ form.company_name.errors.0 }}</p>
+            {% endif %}
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 mb-2">{{ form.base_city.label }}</label>
+            {{ form.base_city }}
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 mb-2">{{ form.base_state.label }}</label>
+            {{ form.base_state }}
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 mb-2">{{ form.base_zip.label }}</label>
+            {{ form.base_zip }}
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 mb-2">{{ form.service_states.label }}</label>
+            <div class="grid grid-cols-3 gap-2 mt-2">
+                {% for checkbox in form.service_states %}
+                    <div class="flex items-center">
+                        {{ checkbox.tag }}
+                        <label for="{{ checkbox.id_for_label }}" class="ml-2">{{ checkbox.choice_label }}</label>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Save Profile</button>
+    </form>
+</div>
+{% endblock %}
+

@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ action }} Event{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow">
+    <h1 class="text-2xl font-bold mb-6">{{ action }} Event</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-4">
+            <label class="block text-gray-700 mb-2">{{ form.title.label }}</label>
+            {{ form.title }}
+            {% if form.title.errors %}
+                <p class="text-red-600 text-sm">{{ form.title.errors.0 }}</p>
+            {% endif %}
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 mb-2">{{ form.description.label }}</label>
+            {{ form.description }}
+        </div>
+        <div class="grid grid-cols-2 gap-4 mb-4">
+            <div>
+                <label class="block text-gray-700 mb-2">{{ form.date.label }}</label>
+                {{ form.date }}
+            </div>
+            <div>
+                <label class="block text-gray-700 mb-2">Time</label>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="text-sm text-gray-600">Start</label>
+                        {{ form.start_time }}
+                    </div>
+                    <div>
+                        <label class="text-sm text-gray-600">End</label>
+                        {{ form.end_time }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4 mb-4">
+            <div>
+                <label class="block text-gray-700 mb-2">{{ form.city.label }}</label>
+                {{ form.city }}
+            </div>
+            <div>
+                <label class="block text-gray-700 mb-2">{{ form.state.label }}</label>
+                {{ form.state }}
+            </div>
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 mb-2">Services Needed</label>
+            <div class="space-y-2">
+                <div class="flex items-center">
+                    {{ form.needs_sound }}
+                    <label for="{{ form.needs_sound.id_for_label }}" class="ml-2">Sound</label>
+                </div>
+                <div class="flex items-center">
+                    {{ form.needs_lighting }}
+                    <label for="{{ form.needs_lighting.id_for_label }}" class="ml-2">Lighting</label>
+                </div>
+                <div class="flex items-center">
+                    {{ form.needs_video }}
+                    <label for="{{ form.needs_video.id_for_label }}" class="ml-2">Video</label>
+                </div>
+                <div class="flex items-center">
+                    {{ form.needs_staging }}
+                    <label for="{{ form.needs_staging.id_for_label }}" class="ml-2">Staging</label>
+                </div>
+                <div class="flex items-center">
+                    {{ form.full_service_package }}
+                    <label for="{{ form.full_service_package.id_for_label }}" class="ml-2">Full Service Package</label>
+                </div>
+            </div>
+        </div>
+        <div class="flex space-x-4">
+            <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700">Save Event</button>
+            <a href="{% url 'event_manager_dashboard' %}" class="bg-gray-300 text-gray-700 px-6 py-2 rounded hover:bg-gray-400">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
